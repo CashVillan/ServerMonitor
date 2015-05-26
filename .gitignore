@@ -5,3 +5,5 @@
 /.settings/
 .*
 !/.gitignore
+/bin/me/cashvillan/servermonitor/pinger/
+/src/me/cashvillan/servermonitor/pinger/
