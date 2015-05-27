@@ -21,19 +21,20 @@ public class Status {
 		}
 	}
 	
-	public static String getStatus(String host, Integer port) {
+	public static String getStatus(String name, String host, Integer port) {
 		String status = "";
 		if (get(host, port) == true) {
-			status = "online";
+			status = name + "online";
 		} else {
-			status = "offline";
+			status = name + "offline";
 		}
 		return status;
 	}
 	
 	public static Color statusColor(String host, Integer port) {
 		Color color = null;
-		if (getStatus(host, port) == "online") {
+		String name = "";
+		if (getStatus(((name, host, port)) - hosts  == "online") {
 			color = Color.green;
 		} else {
 			color = Color.red;

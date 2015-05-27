@@ -1,10 +1,13 @@
 package me.cashvillan.servermonitor.handlers;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,15 +21,17 @@ public class Window {
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		frame.setVisible(true);
+		frame.getContentPane().setBackground(Color.BLACK);
+		frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 	}
 
-	public static void startWindow() {		
+	public static void startWindow() {	
 		JFrame frame = new JFrame("Server Monitor");
 		for (Server s : ServerManager.servers) {
-			JLabel label = new JLabel(Status.getStatus(ServerManager.getHost(s.name), ServerManager.getPort(s.name)));
+			JLabel label = new JLabel(Status.getStatus(s.name + " ", (ServerManager.getHost(s.name), ServerManager.getPort(s.name)).toUpperCase());
+			label.setFont(new Font(Font.SERIF, Font.TRUETYPE_FONT, 19));
 			label.setForeground(Status.statusColor(ServerManager.getHost(s.name), ServerManager.getPort(s.name)));
 			label.setAlignmentX(Component.CENTER_ALIGNMENT);
-			label.setAlignmentY(Component.TOP_ALIGNMENT);
 			frame.add(label);
 		}
 		addButtons(frame);
@@ -41,11 +46,21 @@ public class Window {
 				return;
 			}
 		});
-		frame.add(addServersButton, BorderLayout.SOUTH);
+		addServersButton.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		addServersButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		frame.add(addServersButton);
+		frame.add(Box.createVerticalStrut(10));
 	}
 	
 	public static void addServersWindow(JFrame frame) {
 		getSettings(frame);
+	}
+	
+	public static void addServers(JFrame frame) {
+		for (Server s : ServerManager.servers) {
+			JLabel label = new JLabel(Status.getStatus(ServerManager.getHost(s.name), ServerManager.getPort(s.name)));
+			label.setForeground(Status.statusColor(ServerManager.getHost(s.name), ServerManager.getPort(s.name)));
+		}
 	}
 	
 }
