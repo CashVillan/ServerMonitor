@@ -28,11 +28,13 @@ public class Window {
 	public static void startWindow() {	
 		JFrame frame = new JFrame("Server Monitor");
 		for (Server s : ServerManager.servers) {
-			JLabel label = new JLabel(Status.getStatus(s.name + " ", (ServerManager.getHost(s.name), ServerManager.getPort(s.name)).toUpperCase());
+			JLabel label = new JLabel(s.name.toUpperCase() + " " + Status.getStatus(ServerManager.getHost(s.name), ServerManager.getPort(s.name)).toUpperCase() + " " + Status.getPlayers(ServerManager.getHost(s.name), ServerManager.getPort(s.name)));
 			label.setFont(new Font(Font.SERIF, Font.TRUETYPE_FONT, 19));
 			label.setForeground(Status.statusColor(ServerManager.getHost(s.name), ServerManager.getPort(s.name)));
-			label.setAlignmentX(Component.CENTER_ALIGNMENT);
+			label.setAlignmentX(Component.LEFT_ALIGNMENT);
+			label.setAlignmentY(Component.LEFT_ALIGNMENT);
 			frame.add(label);
+			frame.add(Box.createVerticalStrut(1));
 		}
 		addButtons(frame);
 		getSettings(frame);
@@ -49,7 +51,6 @@ public class Window {
 		addServersButton.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		addServersButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		frame.add(addServersButton);
-		frame.add(Box.createVerticalStrut(10));
 	}
 	
 	public static void addServersWindow(JFrame frame) {
