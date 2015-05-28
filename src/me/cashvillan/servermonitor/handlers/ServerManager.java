@@ -9,6 +9,7 @@ public class ServerManager {
 	public ServerManager() {
 		new Server("minetheft", "play.minetheft.com", 25565);
 		new Server("rustmc", "play.therustmc.com", 25565);
+		new Server("rustmd", "play.therustmd.com", 25565);
 	}
 	
 	public static Server getServer(String name) {

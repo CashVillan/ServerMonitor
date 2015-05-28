@@ -28,9 +28,9 @@ public class Window {
 	public static void startWindow() {	
 		JFrame frame = new JFrame("Server Monitor");
 		for (Server s : ServerManager.servers) {
-			JLabel label = new JLabel(s.name.toUpperCase() + " " + Status.getStatus(ServerManager.getHost(s.name), ServerManager.getPort(s.name)).toUpperCase() + " " + Status.getPlayers(ServerManager.getHost(s.name), ServerManager.getPort(s.name)));
+			JLabel label = new JLabel(s.name.toUpperCase() + " / " + Status.getStatus(s.name, ServerManager.getHost(s.name), ServerManager.getPort(s.name)).toUpperCase() + " " + Status.getPlayers(ServerManager.getHost(s.name), ServerManager.getPort(s.name)));
 			label.setFont(new Font(Font.SERIF, Font.TRUETYPE_FONT, 19));
-			label.setForeground(Status.statusColor(ServerManager.getHost(s.name), ServerManager.getPort(s.name)));
+			label.setForeground(Status.statusColor(s.name, ServerManager.getHost(s.name), ServerManager.getPort(s.name)));
 			label.setAlignmentX(Component.LEFT_ALIGNMENT);
 			label.setAlignmentY(Component.LEFT_ALIGNMENT);
 			frame.add(label);
@@ -56,12 +56,4 @@ public class Window {
 	public static void addServersWindow(JFrame frame) {
 		getSettings(frame);
 	}
-	
-	public static void addServers(JFrame frame) {
-		for (Server s : ServerManager.servers) {
-			JLabel label = new JLabel(Status.getStatus(ServerManager.getHost(s.name), ServerManager.getPort(s.name)));
-			label.setForeground(Status.statusColor(ServerManager.getHost(s.name), ServerManager.getPort(s.name)));
-		}
-	}
-	
 }
