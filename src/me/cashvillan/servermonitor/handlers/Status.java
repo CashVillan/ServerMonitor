@@ -73,7 +73,7 @@ public class Status {
 	public static String onOnlineString(String name, String host, Integer port) {
 		String difference = "";
 		
-		if (get(host, port) == true) {
+		if (get(host, port) == false) {
 			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");  
 
 			try {

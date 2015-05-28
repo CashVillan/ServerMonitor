@@ -27,23 +27,33 @@ public class Window extends Thread {
 		frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 	}
 
-	public static void startWindow() {	
-		final JFrame frame = new JFrame("Server Monitor");
-		addServers(frame);
-		addButtons(frame);
+	public static void startWindow() {
+		JFrame frame = new JFrame("Server Monitor");
 		getSettings(frame);
+		addButtons(frame);
+		addServers(frame);
 		SwingUtilities.updateComponentTreeUI(frame);
 	}
 	
 	public static void addServers(JFrame frame) {
-		for (Server s : ServerManager.servers) {
-			JLabel label = new JLabel(s.name.toUpperCase() + " / " + Status.getStatus(s.name, ServerManager.getHost(s.name), ServerManager.getPort(s.name)).toUpperCase() + " " + Status.getPlayers(ServerManager.getHost(s.name), ServerManager.getPort(s.name)));
-			label.setFont(new Font(Font.SERIF, Font.TRUETYPE_FONT, 19));
-			label.setForeground(Status.statusColor(s.name, ServerManager.getHost(s.name), ServerManager.getPort(s.name)));
-			label.setAlignmentX(Component.LEFT_ALIGNMENT);
-			label.setAlignmentY(Component.LEFT_ALIGNMENT);
-			frame.add(label);
-			frame.add(Box.createVerticalStrut(1));
+		System.out.println("SUCCESS");
+		while (true) {
+			for (Server s : ServerManager.servers) {
+				JLabel label = new JLabel(s.name.toUpperCase() + " / " + Status.getStatus(s.name, s.host, s.port).toUpperCase() + " " + Status.getPlayers(s.host, s.port));
+				label.setFont(new Font(Font.SERIF, Font.TRUETYPE_FONT, 19));
+				label.setForeground(Status.statusColor(s.name, s.host, s.port));
+				label.setAlignmentX(Component.LEFT_ALIGNMENT);
+				label.setAlignmentY(Component.LEFT_ALIGNMENT);
+				System.out.println("test");
+				frame.add(label);
+				frame.add(Box.createVerticalStrut(1));
+				System.out.println("SUCCESS1");
+			}
+			try {
+				Thread.sleep(5000);
+			} catch (Exception e) {
+				System.out.println("caught");
+			}
 		}
 	}
 	private static void addButtons(final JFrame frame) {
