@@ -1,5 +1,6 @@
 package me.cashvillan.servermonitor.handlers;
 
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -11,9 +12,10 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
-public class Window {
+public class Window extends Thread {
 	
 	public static void getSettings(JFrame frame) {
 		frame.setSize(350, 1080);
@@ -26,7 +28,14 @@ public class Window {
 	}
 
 	public static void startWindow() {	
-		JFrame frame = new JFrame("Server Monitor");
+		final JFrame frame = new JFrame("Server Monitor");
+		addServers(frame);
+		addButtons(frame);
+		getSettings(frame);
+		SwingUtilities.updateComponentTreeUI(frame);
+	}
+	
+	public static void addServers(JFrame frame) {
 		for (Server s : ServerManager.servers) {
 			JLabel label = new JLabel(s.name.toUpperCase() + " / " + Status.getStatus(s.name, ServerManager.getHost(s.name), ServerManager.getPort(s.name)).toUpperCase() + " " + Status.getPlayers(ServerManager.getHost(s.name), ServerManager.getPort(s.name)));
 			label.setFont(new Font(Font.SERIF, Font.TRUETYPE_FONT, 19));
@@ -36,10 +45,7 @@ public class Window {
 			frame.add(label);
 			frame.add(Box.createVerticalStrut(1));
 		}
-		addButtons(frame);
-		getSettings(frame);
 	}
-	
 	private static void addButtons(final JFrame frame) {
 		JButton addServersButton = new JButton("Add Servers");
 		addServersButton.addActionListener(new ActionListener() {
