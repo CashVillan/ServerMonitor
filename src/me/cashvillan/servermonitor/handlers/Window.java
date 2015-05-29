@@ -17,6 +17,8 @@ import javax.swing.WindowConstants;
 
 public class Window extends Thread {
 	
+	public static boolean inMain = true;
+	
 	public static void getSettings(JFrame frame) {
 		frame.setSize(350, 1080);
 		frame.setResizable(false);
@@ -36,21 +38,19 @@ public class Window extends Thread {
 	}
 	
 	public static void addServers(JFrame frame) {
-		System.out.println("SUCCESS");
-		while (true) {
+		while (inMain == true) {
 			for (Server s : ServerManager.servers) {
-				JLabel label = new JLabel(s.name.toUpperCase() + " / " + Status.getStatus(s.name, s.host, s.port).toUpperCase() + " " + Status.getPlayers(s.host, s.port));
+				JLabel label = new JLabel("wo" + s.name.toUpperCase() + " / " + Status.getStatus(s.name, s.host, s.port).toUpperCase() + " " + Status.getPlayers(s.host, s.port));
 				label.setFont(new Font(Font.SERIF, Font.TRUETYPE_FONT, 19));
 				label.setForeground(Status.statusColor(s.name, s.host, s.port));
 				label.setAlignmentX(Component.LEFT_ALIGNMENT);
 				label.setAlignmentY(Component.LEFT_ALIGNMENT);
-				System.out.println("test");
 				frame.add(label);
 				frame.add(Box.createVerticalStrut(1));
-				System.out.println("SUCCESS1");
 			}
 			try {
 				Thread.sleep(5000);
+				System.out.println("SLEPT");
 			} catch (Exception e) {
 				System.out.println("caught");
 			}
